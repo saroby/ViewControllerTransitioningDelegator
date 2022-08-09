@@ -11,18 +11,10 @@ final class PopupDialogOverlayView: UIView {
         set { overlay.backgroundColor = newValue }
     }
     
-    /// The opacity of the overlay view
-    @objc public dynamic var opacity: CGFloat {
-        get { return overlay.alpha }
-        set { overlay.alpha = newValue }
-    }
-    
     // MARK: - Views
     
     internal lazy var overlay: UIView = {
         let overlay = UIView(frame: .zero)
-        overlay.backgroundColor = .black
-        overlay.alpha = 0.7
         overlay.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         return overlay
     }()
@@ -44,4 +36,5 @@ final class PopupDialogOverlayView: UIView {
         self.alpha = 0
         self.addSubview(overlay)
     }
+    
 }

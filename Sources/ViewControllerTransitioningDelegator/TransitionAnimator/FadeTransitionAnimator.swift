@@ -3,15 +3,6 @@ import UIKit
 
 final class FadeTransitionAnimator: TransitionAnimator {
     
-    
-    init(direction: AnimationDirection) {
-        super.init(
-            inDuration: 0.3,
-            outDuration: 0.2,
-            direction: direction
-        )
-    }
-    
     override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         super.animateTransition(using: transitionContext)
         
@@ -19,7 +10,7 @@ final class FadeTransitionAnimator: TransitionAnimator {
         case .in:
             to.view.alpha = 0
             UIView.animate(
-                withDuration: 0.6,
+                withDuration: self.duration,
                 delay: 0,
                 options: [.curveEaseOut]
             ) { [weak self] in
@@ -32,7 +23,7 @@ final class FadeTransitionAnimator: TransitionAnimator {
             
         case .out:
             UIView.animate(
-                withDuration: outDuration,
+                withDuration: self.duration,
                 delay: 0,
                 options: [.curveEaseIn]
             ) { [weak self] in
@@ -45,4 +36,5 @@ final class FadeTransitionAnimator: TransitionAnimator {
             
         }
     }
+    
 }

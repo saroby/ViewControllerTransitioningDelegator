@@ -3,27 +3,23 @@ import UIKit
 
 class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
-    enum AnimationDirection {
-        case `in`
-        case out
-    }
-    
     var to: UIViewController!
+    
     var from: UIViewController!
-    let inDuration: TimeInterval
-    let outDuration: TimeInterval
+    
+    let duration: TimeInterval
+    
     let direction: AnimationDirection
     
     
-    init(inDuration: TimeInterval, outDuration: TimeInterval, direction: AnimationDirection) {
-        self.inDuration = inDuration
-        self.outDuration = outDuration
+    init(direction: AnimationDirection, duration: TimeInterval) {
         self.direction = direction
+        self.duration = duration
         super.init()
     }
     
     internal func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return direction == .in ? inDuration : outDuration
+        return self.duration
     }
     
     internal func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -48,4 +44,15 @@ class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             self.from = from
         }
     }
+    
+}
+
+
+extension TransitionAnimator {
+    
+    enum AnimationDirection {
+        case `in`
+        case out
+    }
+    
 }
