@@ -4,6 +4,9 @@ import UIKit
 public class PopupViewController: UIViewController {
     
     let delegator: PopupControllerTransitionDelegator
+    
+    let contentView: UIView
+    
     var backgroundTappedClosure: ((PopupViewController) -> Void)?
     
     
@@ -12,7 +15,7 @@ public class PopupViewController: UIViewController {
     }
     
     public init(
-        view: UIView,
+        contentView: UIView,
         presentAnimation: PopupControllerTransitionDelegator.PresentAnimation,
         presentAnimationDuration: TimeInterval,
         dismissAnimation: PopupControllerTransitionDelegator.DismissAnimation,
@@ -28,26 +31,27 @@ public class PopupViewController: UIViewController {
             dismissAnimationDuration: dismissAnimationDuration,
             backgroundColor: .black.withAlphaComponent(0.7)
         )
+        self.contentView = contentView
         super.init(nibName: nil, bundle: nil)
         
         self.transitioningDelegate = self.delegator
         self.modalPresentationStyle = .custom
         
-        self.view.addSubview(view)
+        self.view.addSubview(contentView)
         
         switch parentAnchor {
         case .center:
-            view.center = .init(
+            contentView.center = .init(
                 x: self.view.center.x,
                 y: self.view.center.y + offsetY
             )
             
         case .bottom:
-            view.center = .init(
+            contentView.center = .init(
                 x: self.view.center.x,
                 y: self.view.frame.height - (view.frame.height / 2) + offsetY
             )
-            view.autoresizingMask = [.flexibleBottomMargin]
+            contentView.autoresizingMask = [.flexibleBottomMargin]
             
         }
         
@@ -58,6 +62,9 @@ public class PopupViewController: UIViewController {
     }
     
     @objc private func onBackgroundTapped(_ sender: UITapGestureRecognizer) {
+        let point = sender.location(in: self.contentView)
+        guard !self.contentView.point(inside: point, with: nil) else { return }
+        
         self.backgroundTappedClosure?(self)
     }
 }
