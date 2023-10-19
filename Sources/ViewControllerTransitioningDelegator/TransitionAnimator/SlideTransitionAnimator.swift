@@ -3,6 +3,13 @@ import UIKit
 
 final class SlideTransitionAnimator: TransitionAnimator {
     
+    let usingSpringWithDamping: CGFloat
+    
+    init(direction: AnimationDirection, duration: TimeInterval, usingSpringWithDamping: CGFloat) {
+        self.usingSpringWithDamping = usingSpringWithDamping
+        super.init(direction: direction, duration: duration)
+    }
+    
     override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         super.animateTransition(using: transitionContext)
         
@@ -28,7 +35,7 @@ final class SlideTransitionAnimator: TransitionAnimator {
         UIView.animate(
             withDuration: animationDuration,
             delay: 0,
-            usingSpringWithDamping: 0.7,
+            usingSpringWithDamping: self.usingSpringWithDamping,
             initialSpringVelocity: 0,
             options: UIView.AnimationOptions.curveEaseOut,
             animations: {
