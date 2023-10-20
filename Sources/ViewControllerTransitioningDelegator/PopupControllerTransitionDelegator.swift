@@ -41,8 +41,8 @@ open class PopupControllerTransitionDelegator: NSObject, UIViewControllerTransit
         switch self.presentAnimation {
         case .fadeIn:
             return FadeTransitionAnimator(direction: .in, duration: self.presentAnimationDuration)
-        case let .up(usingSpringWithDamping):
-            return SlideTransitionAnimator(direction: .in, duration: self.presentAnimationDuration, usingSpringWithDamping: usingSpringWithDamping)
+        case let .up(usingSpringWithDamping, options):
+            return SlideTransitionAnimator(direction: .in, duration: self.presentAnimationDuration, usingSpringWithDamping: usingSpringWithDamping, options: options)
         }
     }
     
@@ -50,8 +50,8 @@ open class PopupControllerTransitionDelegator: NSObject, UIViewControllerTransit
         switch self.dismissAnimation {
         case .fadeOut:
             return FadeTransitionAnimator(direction: .out, duration: self.dismissAnimationDuration)
-        case let .down(usingSpringWithDamping):
-            return SlideTransitionAnimator(direction: .out, duration: self.dismissAnimationDuration, usingSpringWithDamping: usingSpringWithDamping)
+        case let .down(usingSpringWithDamping, options):
+            return SlideTransitionAnimator(direction: .out, duration: self.dismissAnimationDuration, usingSpringWithDamping: usingSpringWithDamping, options: options)
         }
     }
     
@@ -66,12 +66,12 @@ extension PopupControllerTransitionDelegator {
     
     public enum PresentAnimation {
         case fadeIn
-        case up(usingSpringWithDamping: CGFloat)
+        case up(usingSpringWithDamping: CGFloat, option: UIView.AnimationOptions = [])
     }
     
     public enum DismissAnimation {
         case fadeOut
-        case down(usingSpringWithDamping: CGFloat)
+        case down(usingSpringWithDamping: CGFloat, option: UIView.AnimationOptions = [])
     }
     
 }

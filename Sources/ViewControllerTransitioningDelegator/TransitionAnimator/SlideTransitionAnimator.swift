@@ -4,9 +4,16 @@ import UIKit
 final class SlideTransitionAnimator: TransitionAnimator {
     
     let usingSpringWithDamping: CGFloat
+    let options: UIView.AnimationOptions
     
-    init(direction: AnimationDirection, duration: TimeInterval, usingSpringWithDamping: CGFloat) {
+    init(
+        direction: AnimationDirection,
+        duration: TimeInterval,
+        usingSpringWithDamping: CGFloat,
+        options: UIView.AnimationOptions
+    ) {
         self.usingSpringWithDamping = usingSpringWithDamping
+        self.options = options
         super.init(direction: direction, duration: duration)
     }
     
@@ -37,7 +44,7 @@ final class SlideTransitionAnimator: TransitionAnimator {
             delay: 0,
             usingSpringWithDamping: self.usingSpringWithDamping,
             initialSpringVelocity: 0,
-            options: UIView.AnimationOptions.curveEaseOut,
+            options: self.options,
             animations: {
                 controller.view.frame = finalFrame
             }
