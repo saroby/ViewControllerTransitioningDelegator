@@ -41,8 +41,14 @@ open class PopupControllerTransitionDelegator: NSObject, UIViewControllerTransit
         switch self.presentAnimation {
         case .fadeIn:
             return FadeTransitionAnimator(direction: .in, duration: self.presentAnimationDuration)
-        case let .up(usingSpringWithDamping, options):
-            return SlideTransitionAnimator(direction: .in, duration: self.presentAnimationDuration, usingSpringWithDamping: usingSpringWithDamping, options: options)
+        case let .up(usingSpringWithDamping, initialSpringVelocity, options):
+            return SlideTransitionAnimator(
+                direction: .in,
+                duration: self.presentAnimationDuration,
+                usingSpringWithDamping: usingSpringWithDamping,
+                initialSpringVelocity: initialSpringVelocity,
+                options: options
+            )
         }
     }
     
@@ -50,8 +56,14 @@ open class PopupControllerTransitionDelegator: NSObject, UIViewControllerTransit
         switch self.dismissAnimation {
         case .fadeOut:
             return FadeTransitionAnimator(direction: .out, duration: self.dismissAnimationDuration)
-        case let .down(usingSpringWithDamping, options):
-            return SlideTransitionAnimator(direction: .out, duration: self.dismissAnimationDuration, usingSpringWithDamping: usingSpringWithDamping, options: options)
+        case let .down(usingSpringWithDamping, initialSpringVelocity, options):
+            return SlideTransitionAnimator(
+                direction: .out,
+                duration: self.dismissAnimationDuration,
+                usingSpringWithDamping: usingSpringWithDamping,
+                initialSpringVelocity: initialSpringVelocity,
+                options: options
+            )
         }
     }
     
@@ -66,12 +78,12 @@ extension PopupControllerTransitionDelegator {
     
     public enum PresentAnimation {
         case fadeIn
-        case up(usingSpringWithDamping: CGFloat, option: UIView.AnimationOptions = [])
+        case up(usingSpringWithDamping: CGFloat = 0.7, initialSpringVelocity: CGFloat = 0, option: UIView.AnimationOptions = [])
     }
     
     public enum DismissAnimation {
         case fadeOut
-        case down(usingSpringWithDamping: CGFloat, option: UIView.AnimationOptions = [])
+        case down(usingSpringWithDamping: CGFloat = 0.7, initialSpringVelocity: CGFloat = 0, option: UIView.AnimationOptions = [])
     }
     
 }
