@@ -78,12 +78,12 @@ extension PopupControllerTransitionDelegator {
     
     public enum PresentAnimation {
         case fadeIn
-        case up(usingSpringWithDamping: CGFloat = 0.7, initialSpringVelocity: CGFloat = 0, option: UIView.AnimationOptions = [])
+        case up(usingSpringWithDamping: CGFloat = 0.7, initialSpringVelocity: CGFloat = 0, options: UIView.AnimationOptions = [])
     }
     
     public enum DismissAnimation {
         case fadeOut
-        case down(usingSpringWithDamping: CGFloat = 0.7, initialSpringVelocity: CGFloat = 0, option: UIView.AnimationOptions = [])
+        case down(usingSpringWithDamping: CGFloat = 0.7, initialSpringVelocity: CGFloat = 0, options: UIView.AnimationOptions = [])
     }
     
 }
